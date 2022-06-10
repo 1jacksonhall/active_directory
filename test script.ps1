@@ -1,4 +1,8 @@
 
+#remove restrictions from running unsigned powershell scripts
+Set-ExecutionPolicy Unrestricted
+
+
 <#extra
 #grabs current ipv4 address
 $ipv4 = (Get-NetIPAddress | Where-Object {$_.AddressState -eq "Preferred" -and $_.ValidLifetime -lt "24:00:00"}).IPAddress
