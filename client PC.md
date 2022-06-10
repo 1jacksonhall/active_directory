@@ -1,3 +1,8 @@
+#Install Windows 11 iso https://www.microsoft.com/software-download/windows11
+#Run through initial setup
+#Install VMware tools
+D:\setup64.exe
+
 #installs chocolatey for package management
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
