@@ -21,3 +21,14 @@ Get-NetIPAddress
 
 #join a workstation to a domain
 Add-Computer -Domainname (name) -Credential (name)\Administrator -Force -Restart
+
+
+
+##**server**
+#Install Windows Server 2022 iso https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022
+#Run through initial setup
+#Install VMware tools
+D:\setup64.exe
+
+#set a static IPv4 address
+Get-NetIPAddress
