@@ -25,7 +25,7 @@ Add-Computer -Domainname (name) -Credential (name)\Administrator -Force -Restart
 
 
 
-##Server``
+##Server
 #Install Windows Server 2022 iso https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022
 #Run through initial setup
 #Install VMware tools
