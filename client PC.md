@@ -1,3 +1,4 @@
+##Client
 #Install Windows 11 iso https://www.microsoft.com/software-download/windows11
 #Run through initial setup
 #Install VMware tools
@@ -24,7 +25,7 @@ Add-Computer -Domainname (name) -Credential (name)\Administrator -Force -Restart
 
 
 
-##**server**
+##Server``
 #Install Windows Server 2022 iso https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022
 #Run through initial setup
 #Install VMware tools
