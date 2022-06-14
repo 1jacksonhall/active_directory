@@ -1,5 +1,5 @@
 #vmware workstation environment
-#configured under a virtual switch as an internal network, no NAT no WAN access
+#configured under a virtual switch as an internal network, no NAT no WAN access outside of installing server roles
 
 
 ##Client
@@ -13,19 +13,18 @@ D:\setup64.exe
 #optional - install chocolatey for package management
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-#allow powershell scripts to run on machine
+#optional allow powershell scripts to run on machine
 Set-ExecutionPolicy Unrestricted
 
+#setup PC for remote management of DC
 #add server IP to trusted hosts on remote management PC
 Start-Service winRM
 set-item WSMan:\localhost\Client\TrustedHosts -value (ServerIP)
 
 Enter-PSSession (ServerIP) -Credential(Get-Credential)
 
-#install the DC roles
-Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
-Get-NetIPAddress
 
+#domain PC
 #join a workstation to a domain
 Add-Computer -Domainname (name) -Credential (name)\Administrator -Force -Restart
 
@@ -36,6 +35,12 @@ Add-Computer -Domainname (name) -Credential (name)\Administrator -Force -Restart
 #Run through initial setup
 #Install VMware tools
 D:\setup64.exe
+
+
+#DC setup
+#install the DC roles
+Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+Get-NetIPAddress
 
 #set a static IPv4 address
 Get-NetIPAddress
@@ -49,3 +54,21 @@ Get-DNSClientServerAddress –InterfaceIndex
 Set-DnsClientServerAddress -InterfaceIndex (interface) -ServerAddresses ("*serverIP*","127.0.0.1")
 
 #client should be able to ping the DC if it is under the same subnet/virtual switch
+
+
+
+
+
+##exchange
+#install pre-reqs
+a. .NET Framework 4.8
+
+b. Visual C++ Redistributable Package for Visual Studio 2012
+
+c. Visual C++ Redistributable Package for Visual Studio 2013
+
+#install windows features
+Install-WindowsFeature RSAT-ADDS
+
+#begin install for remaining features - come back tomorrow
+Install-WindowsFeature Server-Media-Foundation, NET-Framework-45-Features, RPC-over-HTTP-proxy, RSAT-Clustering, RSAT-Clustering-CmdInterface, RSAT-Clustering-PowerShell, WAS-Process-Model, Web-Asp-Net45, Web-Basic-Auth, Web-Client-Auth, Web-Digest-Auth, Web-Dir-Browsing, Web-Dyn-Compression, Web-Http-Errors, Web-Http-Logging, Web-Http-Redirect, Web-Http-Tracing, Web-ISAPI-Ext, Web-ISAPI-Filter, Web-Metabase, Web-Mgmt-Service, Web-Net-Ext45, Web-Request-Monitor, Web-Server, Web-Stat-Compression, Web-Static-Content, Web-Windows-Auth, Web-WMI, RSAT-ADDS
