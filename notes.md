@@ -1,10 +1,16 @@
+#vmware workstation environment
+#configured under a virtual switch as an internal network, no NAT no WAN access
+
+
 ##Client
 #Install Windows 11 iso https://www.microsoft.com/software-download/windows11
 #Run through initial setup
 #Install VMware tools
 D:\setup64.exe
+#create a clone of client
 
-#installs chocolatey for package management
+
+#optional - install chocolatey for package management
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 #allow powershell scripts to run on machine
@@ -33,3 +39,13 @@ D:\setup64.exe
 
 #set a static IPv4 address
 Get-NetIPAddress
+#note the interfaceindex for ipv4 address
+Remove-NetIPAddress (IP)
+New-NetIPAddress (NEWIP) -InterfaceIndex (interface) -PrefixLength (network bits/subnet)
+
+#configure dns to point to itself, verify with
+Get-DNSClientServerAddress –InterfaceIndex
+#set the dns to either the server's IP or loopback address
+Set-DnsClientServerAddress -InterfaceIndex (interface) -ServerAddresses ("*serverIP*","127.0.0.1")
+
+#client should be able to ping the DC if it is under the same subnet/virtual switch
