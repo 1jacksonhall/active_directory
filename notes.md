@@ -24,8 +24,7 @@ set-item WSMan:\localhost\Client\TrustedHosts -value (ServerIP)
 Enter-PSSession (ServerIP) -Credential(Get-Credential)
 
 
-#domain PC
-#join a workstation to a domain
+#domain PC - join a workstation to a domain
 Add-Computer -Domainname (name) -Credential (name)\Administrator -Force -Restart
 
 
@@ -56,16 +55,19 @@ Install-ADDSForest -DomainName "domain.local" -InstallDNS
 Get-NetIPAddress
 #note the interfaceindex for ipv4 address
 Remove-NetIPAddress (IP)
-New-NetIPAddress (NEWIP) -InterfaceIndex (interface) -PrefixLength (network bits/subnet)
+New-NetIPAddress (NEWIP) -InterfaceIndex (interface) -PrefixLength (network bits/subnet) -DefaultGateway (IP)
 
-#configure dns to point to itself, verify with
+#configure dns on DC to point to itself, verify with
 Get-DNSClientServerAddress –InterfaceIndex
 #set the dns to either the server's IP or loopback address
 Set-DnsClientServerAddress -InterfaceIndex (interface) -ServerAddresses ("*serverIP*","127.0.0.1")
 
 #client should be able to ping the DC if it is under the same subnet/virtual switch
 
-
+#add windows features
+Add-WindowsFeature AD-Domain-Services
+#install forest/promote to domain controller
+Install-ADDSForest -DomainName (DOMAINNAME) -InstallDNS
 
 
 
