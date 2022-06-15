@@ -38,9 +38,12 @@ D:\setup64.exe
 
 
 #DC setup
-#install the DC roles
+#install the DC features
 Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
-Get-NetIPAddress
+#install AD DS forest
+Import-Module ADDSDeployment
+Install-ADDSForest -DomainName "domain.local" -InstallDNS
+
 
 #set a static IPv4 address
 Get-NetIPAddress
