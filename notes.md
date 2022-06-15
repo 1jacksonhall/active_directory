@@ -36,6 +36,13 @@ Add-Computer -Domainname (name) -Credential (name)\Administrator -Force -Restart
 #Install VMware tools
 D:\setup64.exe
 
+#useful commands
+Set-DNSClientServerAddress                                #Statically confiure DNS (e.g. Set-DnsClientServerAddress -InterfaceIndex 12 -ServerAddresses ("1.1.1.1","1.0.0.1"))
+Set-DnsClientServerAddress -ResetServerAddresses          #removes statically configured DNS address
+Remove-NetRoute                                           #removes statically configured default gateways
+Remove-NetIPAddress                                       #removes a network config/statically configured IP from an interface
+New-NetIPAddress                                          #Creates a new network configuration for an interface
+
 
 #DC setup
 #install the DC features
