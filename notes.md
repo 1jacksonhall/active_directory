@@ -2,7 +2,7 @@
 #configured under a virtual switch as an internal network, no NAT no WAN access outside of installing server roles
 
 
-##Client
+**##Client**
 #Install Windows 11 iso https://www.microsoft.com/software-download/windows11
 #Run through initial setup
 #Install VMware tools
@@ -43,7 +43,9 @@ Remove-NetIPAddress                                       #removes a network con
 New-NetIPAddress                                          #Creates a new network configuration for an interface
 
 
-#DC setup
+
+
+**#DC setup**
 #install the DC features
 Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
 #install AD DS forest
@@ -68,6 +70,43 @@ Set-DnsClientServerAddress -InterfaceIndex (interface) -ServerAddresses ("*serve
 Add-WindowsFeature AD-Domain-Services
 #install forest/promote to domain controller
 Install-ADDSForest -DomainName (DOMAINNAME) -InstallDNS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
